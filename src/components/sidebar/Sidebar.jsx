@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Search } from "./components/Search"
-import { Categories } from "./components/Categories"
-import SeasonSaleBanner from "../images/season-sale-banner.svg"
+import { Search } from "./components/search/Search"
+import { Categories } from "./components/categories/Categories"
+import SeasonSaleBanner from "./images/season-sale-banner.svg"
 
 
 export const Sidebar = () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import search from "../../icons/search.svg"
+import search from "./icons/search.svg"
 
 const debounce = (func, ms) => {
     let timeout;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Product } from "./components/Product";
-import { Sidebar } from "./components/Sidebar"
+import { Product } from "./components/product/Product";
+import { Sidebar } from "./components/sidebar/Sidebar"
 import PaginationArrowRight from "./icons/arrow-right.svg"
 import PaginationArrowLeft from "./icons/arrow-left.svg"
 import "./Shop.css"

@@ -1,5 +1,5 @@
 import React from "react";
-import Heart from "../icons/heart.svg"
+import Heart from "./icons/heart.svg"
 
 export const Product = ({product}) => {
 
