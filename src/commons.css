@@ -1,0 +1,148 @@
+*{
+    font-family: Raleway;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* @font-face {
+    font-family: 'Raleway';
+    src: url('') format('truetype');
+}
+
+@font-face {
+    font-family: 'Josefin';
+    src: url('') format('truetype');
+} */
+
+.container{
+    margin: 0 auto;
+    max-width: 1140px;
+    width: 100%;
+}
+
+.container .button-wrapper{
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    max-width: 240px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.container .button-wrapper .button{
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+    border: none;
+    background-color: black;
+    padding: 17px 74px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.container .button-wrapper .button:disabled{
+    opacity: 0.5;
+}
+
+.container .button-wrapper .vertical-line{
+    width: 2px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+
+}
+
+.container .button-wrapper .button:disabled ~ .vertical-line{
+    opacity: 0.5;
+}
+
+.container .price{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.container  .price .current-price{
+    font-family: Josefin Sans;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.container  .price .old-price{
+    font-family: Josefin Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 16px;
+    text-decoration: line-through;
+    color: rgba(68, 68, 68, 1);
+}
+
+.container .custom-list{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 27.2px;
+}
+
+.container .custom-list li{
+    color: rgb(68, 68, 68, 1);
+    list-style: square;
+    cursor: pointer;
+}
+
+.container .custom-list li.active{
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: -16px;
+    gap: 12px;
+}
+
+.container .custom-list li.active{
+    color: rgba(255, 142, 142, 1);
+    list-style: none;
+}
+
+.container .custom-list li.active::before{
+    content: "";
+    display: block;
+    height: 3px;
+    width: 25px;
+    background-image: url(./icons/small-row.svg);
+}
+
+.container .find-us .find-us-text{
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 27.2px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 27.2px;
+}
+
+.container .find-us .find-us-links{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.container .find-us .find-us-links .find-us-link a{
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14.09px;
+    color: rgba(68, 68, 68, 1);
+
+}
+
+.container .find-us .find-us-links .line{
+    border-bottom: 1px solid #444444;
+    height: 1px;
+    width: 10px;
+}

@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Header } from './Header'
+import { ContentArea } from './ContentArea'
+import { Shop } from './Shop';
+import data from './products.json'
 import './App.css';
+import './commons.css'
 
 function App() {
+
+  const getFromLS = (key) => {
+    try{
+        return JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const setToLS = (key, value) => {
+    try{
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Header/>
+      <ContentArea/>
+      <Shop data = {data}/>
+    </div>  //'App'
   );
 }
 

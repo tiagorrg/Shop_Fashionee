@@ -1,0 +1,75 @@
+.hat{
+    margin-top: 50px;
+    margin-bottom: 200px;
+    display: flex;
+    gap: 150px;
+    justify-content: center;
+}
+
+.hat .container{
+    position: relative;
+    width: 100%;
+    margin: auto auto auto 0;
+}
+
+.hat .container .background{
+    width: 100%;
+}
+
+.hat .container .background .points{
+    position: relative;
+    left: 60px;
+}
+
+.hat .container .background .big-line{
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 256px;
+    background-color: black;
+}
+
+.hat .container .info-container{
+    position: absolute;
+    left: 390px;
+    top: 111px;
+}
+
+.hat .container .info-container .title{
+    font-family: Josefin Sans;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 80px;
+}
+
+.hat .container .info-container .way{
+    display: flex;
+    gap: 12px;
+}
+
+.hat .container .info-container .line{
+    height: 15px;
+    width: 1.5px;
+    background-color: black;
+}
+
+.hat .container .info-container .way .item{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    color: black;
+}
+
+.hat .container .info-container .way .item.active{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+    color: rgba(255, 142, 142, 1);
+}
+
+.hat .grey-block{
+    height: 400px;
+    max-width: 800px;
+    width: 100%;
+    background-color: rgba(241, 242, 243, 1);
+}
