@@ -1,4 +1,5 @@
-import { React } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BasketContext } from '../../context/basketContext';
 import logoIcon from './icons/logo.svg';
 import searchIcon from './icons/search.svg';
 import profileIcon from './icons/profile.svg';
@@ -8,7 +9,39 @@ import vectorIcon from './icons/vector.svg';
 import vectorPinkIcon from './icons/vector-pink.svg';
 import './Header.css';
 
+const PRODUCT_IN_BASKET_KEY = 'product-in-basket'
+
+const getFromLS = (key) => {
+    try{
+        return JSON.parse(localStorage.getItem(key));
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getProductCountInBasket = (products) => {
+    if (!products){
+        return 0
+    }
+
+    let result
+
+    products.forEach(product => {
+        result += product.quantity
+    });
+
+    return result
+}
+
 export const Header = () => {
+    const [basketCounter, setBasketCounter] = useState (0)
+
+    if (getFromLS(PRODUCT_IN_BASKET_KEY)){
+        console.log('Local', getFromLS(PRODUCT_IN_BASKET_KEY).length)
+
+    }
+
+    setBasketCounter(getProductCountInBasket(getFromLS(PRODUCT_IN_BASKET_KEY)))
 
     return (
         <header className='header'>
@@ -58,7 +91,7 @@ export const Header = () => {
                 </div>
                 <div className='header-icons'>
                     <img src={cartIcon} alt='icons-cart'/>
-                    <div className='counter js-basket-counter'>0</div>
+                    <div className='counter js-basket-counter'>{basketCounter}</div>
                 </div>
             </div>
         </header>
