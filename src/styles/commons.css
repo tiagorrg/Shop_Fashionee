@@ -113,7 +113,7 @@
     display: block;
     height: 3px;
     width: 25px;
-    background-image: url(./icons/small-row.svg);
+    background-image: url(../icons/small-row.svg);
 }
 
 .container .find-us .find-us-text{

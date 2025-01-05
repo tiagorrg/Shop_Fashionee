@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Header } from './components/Header/Header.jsx'
 import { ContentArea } from './components/ContextArea/ContentArea.jsx'
 import { Shop } from './components/Shop/Shop.jsx';
 import data from './products.json'
-import './App.css';
-import './commons.css'
+import './styles/App.css';
+import './styles/commons.css'
+
+import {AuthContext} from './context'
 
 function App() {
 

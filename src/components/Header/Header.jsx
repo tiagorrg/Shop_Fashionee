@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BasketContext } from '../../context/basketContext';
+import { BasketContext } from '../../context';
 import logoIcon from './icons/logo.svg';
 import searchIcon from './icons/search.svg';
 import profileIcon from './icons/profile.svg';
@@ -7,9 +7,11 @@ import heartIcon from './icons/heart.svg';
 import cartIcon from './icons/cart.svg';
 import vectorIcon from './icons/vector.svg';
 import vectorPinkIcon from './icons/vector-pink.svg';
+import { CountFromLS } from './components/CountFromLS'
 import './Header.css';
 
 const PRODUCT_IN_BASKET_KEY = 'product-in-basket'
+const PRODUCT_IN_FAVORITE_KEY = 'products-in-favorite'
 
 const getFromLS = (key) => {
     try{
@@ -19,29 +21,37 @@ const getFromLS = (key) => {
     }
 }
 
-const getProductCountInBasket = (products) => {
-    if (!products){
-        return 0
+const countInLSForKey = (key) => {
+    const arrayObject = getFromLS(key)
+    let result = 0
+
+    if (!arrayObject){
+        return result
     }
 
-    let result
+    if (!arrayObject[0].quantity){
+        return result = arrayObject.length
+    }
 
-    products.forEach(product => {
-        result += product.quantity
-    });
+    if (arrayObject[0].quantity){
+        arrayObject.forEach(object => {
+            result += object.quantity
+        });
+    }
 
     return result
 }
 
 export const Header = () => {
-    const [basketCounter, setBasketCounter] = useState (0)
+    const [favoriteCounter, setFavoriteCounter] = useState(0)
+    const [basketCounter, setBasketCounter] = useState (countInLSForKey(PRODUCT_IN_BASKET_KEY))
+    
+    
 
-    if (getFromLS(PRODUCT_IN_BASKET_KEY)){
-        console.log('Local', getFromLS(PRODUCT_IN_BASKET_KEY).length)
-
-    }
-
-    setBasketCounter(getProductCountInBasket(getFromLS(PRODUCT_IN_BASKET_KEY)))
+    useEffect(() => {
+        
+    }, []);
+    
 
     return (
         <header className='header'>
@@ -85,14 +95,8 @@ export const Header = () => {
                 <div className='header-icons'>
                     <img src={profileIcon} alt='icons-profile'/>
                 </div>
-                <div className='header-icons'>
-                    <img src={heartIcon} alt='icons-favorites'/>
-                    <div className='counter js-favorites-count'>0</div>
-                </div>
-                <div className='header-icons'>
-                    <img src={cartIcon} alt='icons-cart'/>
-                    <div className='counter js-basket-counter'>{basketCounter}</div>
-                </div>
+                <CountFromLS urlIcon={heartIcon} altIcon='Icon favorite' count={favoriteCounter} />
+                <CountFromLS urlIcon={cartIcon} altIcon='Icon cart' count={basketCounter} />
             </div>
         </header>
     );    

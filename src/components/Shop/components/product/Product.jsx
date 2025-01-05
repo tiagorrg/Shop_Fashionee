@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Heart from "./icons/heart.svg"
 
+import {BasketContext} from "../../../../context/index"
+
 const PRODUCT_IN_BASKET_KEY = 'product-in-basket'
 
 const setToLS = (key, value) => {
@@ -56,10 +58,15 @@ const clickBuyProduct = (currentProduct) => {
 }
 
 export const Product = ({product}) => {
-    
+    const [productsInBasket, setProductsInBasket] = useState (getFromLS(PRODUCT_IN_BASKET_KEY))
+
+
 
     return (
-    <>
+    <BasketContext.Provider value={{
+        productsInBasket,
+        setProductsInBasket
+    }}>
         <div className="product" id={product.id} key={product.id}>
             <div className="photo">
                 <div className="top-bar">
@@ -83,8 +90,11 @@ export const Product = ({product}) => {
                     </div>
                 </div>
             </div>
-            <button className="buy-btn" onClick={() => clickBuyProduct(product)}>Купить</button>
+            <button className="buy-btn" onClick={() => {
+                clickBuyProduct(product)
+                setProductsInBasket(getFromLS(PRODUCT_IN_BASKET_KEY).push(product))
+            }}>Купить</button>
         </div>
-    </>
+    </BasketContext.Provider>
     );
 }
