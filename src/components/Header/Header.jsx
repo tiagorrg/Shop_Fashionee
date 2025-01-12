@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { BasketContext } from '../../context';
+import React, { useState, useEffect, useContext } from 'react';
+import { BasketContext, FavoriteContext } from '../../context';
+import { CountFromLS } from './components/CountFromLS'
+import './Header.css';
+
 import logoIcon from './icons/logo.svg';
 import searchIcon from './icons/search.svg';
 import profileIcon from './icons/profile.svg';
@@ -7,11 +10,6 @@ import heartIcon from './icons/heart.svg';
 import cartIcon from './icons/cart.svg';
 import vectorIcon from './icons/vector.svg';
 import vectorPinkIcon from './icons/vector-pink.svg';
-import { CountFromLS } from './components/CountFromLS'
-import './Header.css';
-
-const PRODUCT_IN_BASKET_KEY = 'product-in-basket'
-const PRODUCT_IN_FAVORITE_KEY = 'products-in-favorite'
 
 const getFromLS = (key) => {
     try{
@@ -43,15 +41,19 @@ const countInLSForKey = (key) => {
 }
 
 export const Header = () => {
-    const [favoriteCounter, setFavoriteCounter] = useState(0)
+    const {PRODUCT_IN_BASKET_KEY, productsInBasket} = useContext(BasketContext)
+    const {PRODUCT_IN_FAVORITE_KEY, productInFavorite,} = useContext(FavoriteContext)
+
+    const [favoriteCounter, setFavoriteCounter] = useState(countInLSForKey)
     const [basketCounter, setBasketCounter] = useState (countInLSForKey(PRODUCT_IN_BASKET_KEY))
-    
-    
 
     useEffect(() => {
-        
-    }, []);
+        setBasketCounter(countInLSForKey(PRODUCT_IN_BASKET_KEY))
+    }, [productsInBasket]);
     
+    useEffect(() => {
+        setFavoriteCounter(countInLSForKey(PRODUCT_IN_FAVORITE_KEY))
+    }, [productInFavorite])
 
     return (
         <header className='header'>
