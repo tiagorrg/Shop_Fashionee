@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { BasketContext, FavoriteContext } from '../../context';
 import { CountFromLS } from './components/CountFromLS'
 import './Header.css';
@@ -11,28 +11,19 @@ import cartIcon from './icons/cart.svg';
 import vectorIcon from './icons/vector.svg';
 import vectorPinkIcon from './icons/vector-pink.svg';
 
-const getFromLS = (key) => {
-    try{
-        return JSON.parse(localStorage.getItem(key));
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-const countInLSForKey = (key) => {
-    const arrayObject = getFromLS(key)
+const countInBasket = (products) => {
     let result = 0
 
-    if (!arrayObject){
+    if (!products || products.length === 0){
         return result
     }
 
-    if (!arrayObject[0].quantity){
-        return result = arrayObject.length
+    if (!products[0].quantity){
+        return result = products.length
     }
 
-    if (arrayObject[0].quantity){
-        arrayObject.forEach(object => {
+    if (products[0].quantity){
+        products.forEach(object => {
             result += object.quantity
         });
     }
@@ -41,19 +32,8 @@ const countInLSForKey = (key) => {
 }
 
 export const Header = () => {
-    const {PRODUCT_IN_BASKET_KEY, productsInBasket} = useContext(BasketContext)
-    const {PRODUCT_IN_FAVORITE_KEY, productInFavorite,} = useContext(FavoriteContext)
-
-    const [favoriteCounter, setFavoriteCounter] = useState(countInLSForKey)
-    const [basketCounter, setBasketCounter] = useState (countInLSForKey(PRODUCT_IN_BASKET_KEY))
-
-    useEffect(() => {
-        setBasketCounter(countInLSForKey(PRODUCT_IN_BASKET_KEY))
-    }, [productsInBasket]);
-    
-    useEffect(() => {
-        setFavoriteCounter(countInLSForKey(PRODUCT_IN_FAVORITE_KEY))
-    }, [productInFavorite])
+    const {productsInBasket} = useContext(BasketContext)
+    const {productsInFavorite} = useContext(FavoriteContext)
 
     return (
         <header className='header'>
@@ -97,8 +77,8 @@ export const Header = () => {
                 <div className='header-icons'>
                     <img src={profileIcon} alt='icons-profile'/>
                 </div>
-                <CountFromLS urlIcon={heartIcon} altIcon='Icon favorite' count={favoriteCounter} />
-                <CountFromLS urlIcon={cartIcon} altIcon='Icon cart' count={basketCounter} />
+                <CountFromLS urlIcon={heartIcon} altIcon='Icon favorite' count={productsInFavorite.length} />
+                <CountFromLS urlIcon={cartIcon} altIcon='Icon cart' count={countInBasket(productsInBasket)} />
             </div>
         </header>
     );    

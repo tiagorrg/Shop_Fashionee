@@ -7,7 +7,6 @@ import "./Shop.css"
 
 
 const getDataProduct = (products) => {
-    console.log('Массив продуктов', products)
     return products.map((product) => {
             return <Product product = {product} key={product.id}/>
         }

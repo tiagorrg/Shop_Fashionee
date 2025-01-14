@@ -3,26 +3,9 @@ import {BasketContext, FavoriteContext} from "../../../../context/index"
 
 import Heart from "./icons/heart.svg"
 import RedHeart from "./icons/heart-red.svg"
-
-const setToLS = (key, value) => {
-    try{
-        localStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-const getFromLS = (key) => {
-    try{
-        return JSON.parse(localStorage.getItem(key));
-    } catch (e) {
-        console.log(e);
-    }
-}
+import { PRODUCT_IN_FAVORITE_KEY, PRODUCT_IN_BASKET_KEY, getFromLS, setToLS } from "../../../../constants"
 
 const clickBuyProduct = (currentProduct, key) => {
-    console.log(currentProduct)
-
     const productInBasket = getFromLS(key)
 
     if(!productInBasket){
@@ -54,42 +37,55 @@ const clickBuyProduct = (currentProduct, key) => {
     setToLS(key, productInBasket)
 }
 
-const clickOnFavorite = (currentProduct, key) => {
-    console.log(getFromLS(key))
-    const productsInFavorite = getFromLS(key)
+const clickOnFavorite = (currentProduct, keyFavorite) => {
+    const productsInFavorite = getFromLS(keyFavorite)
 
-    if (!productsInFavorite){
-        setToLS(key, [{...currentProduct}])
-
+    if (!productsInFavorite || productsInFavorite.length === 0){
+        setToLS(keyFavorite, [{...currentProduct}])
         return true
     }
 
     let hasProductInFavorite = false
-
-    const updatedProducts = productsInFavorite.map((productInFavorite) => {
-        if (productInFavorite.id === currentProduct.id) {
-            
+    
+    const updateProductsInFavorite = productsInFavorite.filter(item => {
+        if(item.id === currentProduct.id ){
+            hasProductInFavorite = true
         }
+        return item.id !== currentProduct.id
     })
 
-    if(hasProductInFavorite){
-        setToLS (key, updatedProducts)
+    if (productsInFavorite.filter(item => { return item.id === currentProduct.id }).length === 0){
+        productsInFavorite.push({...currentProduct})
+    }
+
+    if (hasProductInFavorite){
+        setToLS(keyFavorite, updateProductsInFavorite)
         return false
     }
 
-    productsInFavorite.push({ ...currentProduct})
-
-    setToLS(key, productsInFavorite)
-
+    setToLS(keyFavorite, productsInFavorite)
     return true
 }
 
+const checkHasFavorite = (productsInFavorite, currentProduct) => {
+    if (!productsInFavorite || productsInFavorite.length === 0){
+        
+        return false
+    }
+
+    const hasProductInFavorite = productsInFavorite.filter( product => { 
+        return product.id === currentProduct.id
+    }).length !== 0
+
+    return hasProductInFavorite
+}
+
 export const Product = ({product}) => {
-    const {PRODUCT_IN_BASKET_KEY, setProductsInBasket} = useContext(BasketContext)
+    const {setProductsInBasket} = useContext(BasketContext)
     
-    const {PRODUCT_IN_FAVORITE_KEY, setProductInFavorite} = useContext(FavoriteContext)
+    const {setProductsInFavorite} = useContext(FavoriteContext)
     
-    const [urlIconFavorite, setUrlIconFavorite] = useState(Heart)
+    const [urlIconFavorite, setUrlIconFavorite] = useState(checkHasFavorite(getFromLS(PRODUCT_IN_FAVORITE_KEY), product) ? RedHeart : Heart)
 
     return (
     <div className="product" id={product.id} key={product.id}>
@@ -103,13 +99,12 @@ export const Product = ({product}) => {
                         clickOnFavorite(product, PRODUCT_IN_FAVORITE_KEY) ? 
                             setUrlIconFavorite(RedHeart) :
                             setUrlIconFavorite(Heart)
-
-                        setProductInFavorite(getFromLS(PRODUCT_IN_FAVORITE_KEY))
+                        setProductsInFavorite(getFromLS(PRODUCT_IN_FAVORITE_KEY))
                 }}>
                     <img src={urlIconFavorite} alt="Favorite Icon" className="favorite-icon"/>
                 </div>
             </div>
-            <img src={product.image ? product.image : 'Loading'} className="product-image"/>
+            <img src={product.image ? product.image : 'Loading'} className="product-image" alt={product.name}/>
         </div>
         <div className="info">
             <div className="name">{product.name}</div>

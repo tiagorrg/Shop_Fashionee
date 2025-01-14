@@ -13,7 +13,7 @@ const debounce = (func, ms) => {
     const [searchValue, setSearchValue] = useState ('')
 
     useEffect ( () => {
-        console.log(searchValue)
+
     }, [searchValue])
 
     return (
