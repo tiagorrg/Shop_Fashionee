@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BasketContext, FavoriteContext } from '../../context';
+import { HeaderContext } from '../../context';
 import { CountFromLS } from './components/CountFromLS'
 import './Header.css';
 
@@ -32,8 +32,7 @@ const countInBasket = (products) => {
 }
 
 export const Header = () => {
-    const {productsInBasket} = useContext(BasketContext)
-    const {productsInFavorite} = useContext(FavoriteContext)
+    const {productsInBasket, productsInFavorite} = useContext(HeaderContext)
 
     return (
         <header className='header'>

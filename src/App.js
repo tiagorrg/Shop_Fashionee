@@ -6,7 +6,7 @@ import data from './products.json'
 import './styles/App.css';
 import './styles/commons.css'
 
-import {BasketContext, FavoriteContext} from './context'
+import { HeaderContext } from './context'
 import { PRODUCT_IN_FAVORITE_KEY, PRODUCT_IN_BASKET_KEY, getFromLS } from './constants'
 
 function App() {
@@ -14,26 +14,22 @@ function App() {
 
   const [productsInFavorite, setProductsInFavorite] = useState (getFromLS(PRODUCT_IN_FAVORITE_KEY) || [])
 
-
+  
 
   return (
-    <BasketContext.Provider value={{
+    <HeaderContext.Provider value = {{
       productsInBasket,
-      setProductsInBasket
-    }}>
-      <FavoriteContext.Provider value = {{
-        productsInFavorite,
-        setProductsInFavorite
-      }}>
+      setProductsInBasket,
 
+      productsInFavorite,
+      setProductsInFavorite
+    }}>
         <div className="App">
           <Header/>
           <ContentArea/>
           <Shop data = {data}/>
         </div> 
-
-      </FavoriteContext.Provider>
-    </BasketContext.Provider>
+    </HeaderContext.Provider>
   );
 }
 
