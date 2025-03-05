@@ -4,7 +4,7 @@ import { Categories } from "./components/categories/Categories";
 import SeasonSaleBanner from "./images/season-sale-banner.svg";
 
 export const Sidebar = ({ searchValue, setSearchValue }) => {
-    const [buttonStatus, setButtonStatus] = useState(true);
+    const [buttonStatus] = useState(true);
 
     return (
         <div className="sidebar">
@@ -63,7 +63,7 @@ export const Sidebar = ({ searchValue, setSearchValue }) => {
                 </div>
             </div>
             <div>
-                <a href="#">
+                <a href="http://localhost:3000">
                     <img src={SeasonSaleBanner} alt="Banner" />
                 </a>
             </div>

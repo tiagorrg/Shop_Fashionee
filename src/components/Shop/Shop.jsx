@@ -1,67 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Product } from "./components/product/Product";
 import { Sidebar } from "./components/sidebar/Sidebar";
-import PaginationArrowRight from "./icons/arrow-right.svg";
-import PaginationArrowLeft from "./icons/arrow-left.svg";
+import { Sort } from "./components/sort_products/Sort";
+import { Pagination } from "./components/pagination/Pagination";
 import { FilterProductsContext } from "../../context";
-import { oldFilter, currentFilter, filterBySearchValue, filterProductsByFilterInfo, pageSize } from "../../constants";
+import { currentFilter, pageSize } from "../../constants";
+import { getDataProduct, filterProducts } from "./utils";
 import "./Shop.css";
-
-const getDataProduct = (products) => {
-    if (JSON.stringify(oldFilter) === JSON.stringify(currentFilter)) {
-        return products.map((product) => {
-            return <Product product={product} key={product.id} />;
-        });
-    }
-};
-
-const filterProducts = (searchValue, filter, sort, pagination, products) => {
-    let filteredProducts = [...products];
-
-    if (searchValue) {
-        filteredProducts = filterBySearchValue(filteredProducts, searchValue);
-    }
-
-    filteredProducts = filterProductsByFilterInfo(filteredProducts, filter);
-
-    if (sort) {
-        sortProducts(filteredProducts, sort);
-    }
-
-    const { paginatedProducts, productsCount } = paginateProducts(filteredProducts, pagination);
-
-    return {
-        filteredProducts: paginatedProducts,
-        productsCount,
-    };
-};
-
-const sortProducts = (products, sort) => {
-    if (sort === "ASC") {
-        return products.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sort === "DESC") {
-        return products.sort((a, b) => b.name.localeCompare(a.name));
-    }
-    return products;
-};
-
-const paginateProducts = (products, pagination) => {
-    const { page, pageSize } = pagination;
-    const startIndex = (page - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const paginatedProducts = products.slice(startIndex, endIndex);
-    return {
-        paginatedProducts,
-        productsCount: products.length,
-    };
-};
 
 export const Shop = ({ data }) => {
     const products = data.products;
     const [filteredProducts, setFilteredProducts] = useState(products);
     const [searchValue, setSearchValue] = useState("");
     const [sort, setSort] = useState("");
-    const [pagination, setPagination] = useState({ page: 1, pageSize: pageSize });
+    const [pagination, setPagination] = useState({ page: 1, pageSize });
 
     useEffect(() => {
         const { filteredProducts: filtered } = filterProducts(
@@ -75,12 +26,14 @@ export const Shop = ({ data }) => {
     }, [searchValue, sort, pagination, products]);
 
     const handleSortChange = (e) => {
-        setSort(e.target.value);
-    };
+        setSort(e.target.value)
+    }
 
     const handlePaginationChange = (newPage) => {
-        setPagination((prev) => ({ ...prev, page: newPage }));
-    };
+        if (newPage !== 0 && newPage <= Math.ceil(products.length / pagination.pageSize)){
+            setPagination((prev) => ({ ...prev, page: newPage }))
+        }
+    }
 
     return (
         <FilterProductsContext.Provider
@@ -105,63 +58,19 @@ export const Shop = ({ data }) => {
                                 </span>{" "}
                                 products in this category
                             </div>
-                            <div className="sort">
-                                <select
-                                    name=""
-                                    id="sort"
-                                    className="input"
-                                    value={sort}
-                                    onChange={handleSortChange}
-                                >
-                                    <option value="">Relevance</option>
-                                    <option value="ASC">ASC</option>
-                                    <option value="DESC">DESC</option>
-                                </select>
-                            </div>
+                        <Sort
+                            sort = {sort}
+                            handleSortChange = {handleSortChange}
+                        />
                         </div>
                         <div className="products js-products">
                             {getDataProduct(filteredProducts)}
                         </div>
-                        <div className="pagination" id="pagination">
-                            <div
-                                className="button-left"
-                                id="left-arrow-button"
-                                onClick={() =>
-                                    handlePaginationChange(pagination.page - 1)
-                                }
-                                disabled={pagination.page === 1}
-                            >
-                                <img src={PaginationArrowLeft} alt="arrow left" />
-                            </div>
-                            <div className="pages js-pages">
-                                {[...Array(Math.ceil(products.length / pagination.pageSize))].map(
-                                    (_, index) => (
-                                        <div
-                                            key={index}
-                                            className={`page js-page ${
-                                                pagination.page === index + 1 ? "active" : ""
-                                            }`}
-                                            onClick={() => handlePaginationChange(index + 1)}
-                                        >
-                                            {index + 1}
-                                        </div>
-                                    )
-                                )}
-                            </div>
-                            <div
-                                className="button-right"
-                                id="right-arrow-button"
-                                onClick={() =>
-                                    handlePaginationChange(pagination.page + 1)
-                                }
-                                disabled={
-                                    pagination.page ===
-                                    Math.ceil(products.length / pagination.pageSize)
-                                }
-                            >
-                                <img src={PaginationArrowRight} alt="arrow right" />
-                            </div>
-                        </div>
+                        <Pagination
+                            pagination={pagination}
+                            handlePaginationChange={handlePaginationChange}
+                            totalItems={products.length}
+                        />
                     </div>
                 </div>
             </div>

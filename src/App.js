@@ -13,9 +13,7 @@ function App() {
   const [productsInBasket, setProductsInBasket] = useState (getFromLS(PRODUCT_IN_BASKET_KEY) || [])
 
   const [productsInFavorite, setProductsInFavorite] = useState (getFromLS(PRODUCT_IN_FAVORITE_KEY) || [])
-
   
-
   return (
     <HeaderContext.Provider value = {{
       productsInBasket,
