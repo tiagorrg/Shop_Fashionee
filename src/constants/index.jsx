@@ -3,18 +3,9 @@ export const PRODUCT_IN_FAVORITE_KEY = 'products-in-favorite'
 
 export const PRODUCT_IN_BASKET_KEY = 'product-in-basket'
 
-export const pageSize = 6
+export const pageSize = 18
 
 export const oldFilter = {
-    category: 'All',
-    price: {
-        min: 0,
-        max: 300
-    },
-    colors: []
-}
-
-export const currentFilter = {
     category: 'All',
     price: {
         min: 0,

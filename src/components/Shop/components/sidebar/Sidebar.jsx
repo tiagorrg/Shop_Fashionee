@@ -1,32 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search } from "./components/search/Search";
 import { Categories } from "./components/categories/Categories";
+import { PriceBar } from "./components/price_bar/PriceBar";
 import SeasonSaleBanner from "./images/season-sale-banner.svg";
 
-export const Sidebar = ({ searchValue, setSearchValue }) => {
-    const [buttonStatus] = useState(true);
+export const Sidebar = ({ setSearchValue, currentFilter, setCurrentFilter }) => {
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [tempFilter, setTempFilter] = useState(currentFilter);
+
+    // Проверяем, изменились ли фильтры
+    useEffect(() => {
+        const isFilterChanged = JSON.stringify(tempFilter) !== JSON.stringify(currentFilter);
+        setIsButtonDisabled(!isFilterChanged);
+    }, [tempFilter, currentFilter]);
+
+    // Применить фильтры
+    const applyFilter = () => {
+        setCurrentFilter(tempFilter);
+    };
+
+    // Обработчик изменения категории
+    const handleCategoryChange = (category) => {
+        setTempFilter((prevFilter) => ({
+            ...prevFilter,
+            category: category,
+        }));
+    };
+
+    // Обработчик изменения цены
+    const handlePriceChange = (priceRange) => {
+        setTempFilter((prevFilter) => ({
+            ...prevFilter,
+            price: priceRange,
+        }));
+    };
 
     return (
         <div className="sidebar">
-            <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-            <Categories />
+            <Search setSearchValue={setSearchValue} />
+
+            <Categories
+                selectedCategory={tempFilter.category}
+                onCategoryChange={handleCategoryChange}
+            />
+
+            <PriceBar
+                selectedPrice={tempFilter.price}
+                onPriceChange={handlePriceChange}
+            />
+
             <div className="sidebar-item">
                 <div className="button-wrapper">
                     <button
                         className="button"
                         id="apply-filter"
-                        disabled={buttonStatus}
-                        onClick={() => true}
+                        disabled={isButtonDisabled}
+                        onClick={applyFilter}
                     >
                         Apply Filter
                     </button>
                     <div className="vertical-line"></div>
                 </div>
             </div>
+
             <div className="sidebar-item">
-                <div className="sidebar-title">
-                    Reviewed by you
-                </div>
+                <div className="sidebar-title">Reviewed by you</div>
                 <div className="sidebar-content">
                     <div className="reviewed-products js-reviewed-products">
                         <div className="product">
@@ -62,6 +100,7 @@ export const Sidebar = ({ searchValue, setSearchValue }) => {
                     </div>
                 </div>
             </div>
+
             <div>
                 <a href="http://localhost:3000">
                     <img src={SeasonSaleBanner} alt="Banner" />
