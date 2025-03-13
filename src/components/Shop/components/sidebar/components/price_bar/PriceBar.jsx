@@ -16,7 +16,7 @@ export const PriceBar = ({ selectedPrice, onPriceChange }) => {
     };
 
     const handleMaxPriceChange = (event) => {
-        const maxPrice = event.target.value === "" ? 0 : Number(event.target.value);
+        const maxPrice = event.target.value === "" ? 200 : Number(event.target.value);
         setCurrentRangePrice((prevRange) => ({
             ...prevRange,
             max: maxPrice,

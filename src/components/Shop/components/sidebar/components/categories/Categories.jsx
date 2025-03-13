@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const Categories = ({ selectedCategory, setTempCategory }) => {
+export const Categories = ({ selectedCategory, onCategoryChange }) => {
     const handleCategoryClick = (e) => {
         const category = e.target.dataset.category
-        setTempCategory(category)
+        onCategoryChange(category)
     };
 
     return (

@@ -1,39 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+
 import { Search } from "./components/search/Search";
 import { Categories } from "./components/categories/Categories";
 import { PriceBar } from "./components/price_bar/PriceBar";
+import { Colors } from "./components/filter_colors/Colors"
+
 import SeasonSaleBanner from "./images/season-sale-banner.svg";
 
 export const Sidebar = ({ setSearchValue, currentFilter, setCurrentFilter }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [tempFilter, setTempFilter] = useState(currentFilter);
 
-    // Проверяем, изменились ли фильтры
     useEffect(() => {
         const isFilterChanged = JSON.stringify(tempFilter) !== JSON.stringify(currentFilter);
         setIsButtonDisabled(!isFilterChanged);
     }, [tempFilter, currentFilter]);
 
-    // Применить фильтры
     const applyFilter = () => {
+        console.log(tempFilter)
         setCurrentFilter(tempFilter);
     };
 
-    // Обработчик изменения категории
     const handleCategoryChange = (category) => {
         setTempFilter((prevFilter) => ({
             ...prevFilter,
             category: category,
-        }));
-    };
+        }))
+    }
 
-    // Обработчик изменения цены
-    const handlePriceChange = (priceRange) => {
+    const handlePriceChange = useCallback(
+    (priceRange)  => 
         setTempFilter((prevFilter) => ({
             ...prevFilter,
-            price: priceRange,
-        }));
-    };
+            price: priceRange, 
+        }))
+        , []
+    )
+
+    const handleColorsChange = (colors) => {
+        setTempFilter((prevFilter) => ({
+            ...prevFilter,
+            colors: colors, 
+        }))
+    }
 
     return (
         <div className="sidebar">
@@ -47,6 +56,11 @@ export const Sidebar = ({ setSearchValue, currentFilter, setCurrentFilter }) => 
             <PriceBar
                 selectedPrice={tempFilter.price}
                 onPriceChange={handlePriceChange}
+            />
+
+            <Colors
+                selectedColors={tempFilter.colors}
+                onColorsChange={handleColorsChange}
             />
 
             <div className="sidebar-item">

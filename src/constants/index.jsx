@@ -3,7 +3,7 @@ export const PRODUCT_IN_FAVORITE_KEY = 'products-in-favorite'
 
 export const PRODUCT_IN_BASKET_KEY = 'product-in-basket'
 
-export const pageSize = 18
+export const pageSize = 12
 
 export const oldFilter = {
     category: 'All',
