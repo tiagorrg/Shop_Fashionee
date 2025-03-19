@@ -25,7 +25,7 @@ export const Colors = ({selectedColors, onColorsChange}) => {
 
 
     return (
-        <div class="sidebar-item">
+        <div className="sidebar-item">
                     <div className="sidebar-title">
                         Colors
                     </div>
@@ -36,35 +36,35 @@ export const Colors = ({selectedColors, onColorsChange}) => {
                                 value="Black" 
                                 onChange={colorClickToggle}
                                 />
-                                <label for="black" className="color-name">Black</label>
+                                <label htmlFor="black" className="color-name">Black</label>
                             </div>
                             <div className="color">
                                 <input type="checkbox" className="color-checkbox filter-color" id="blue" name="blue" 
                                 value="Blue" 
                                 onChange={colorClickToggle}
                                 />
-                                <label for="blue" className="color-name">Blue</label>
+                                <label htmlFor="blue" className="color-name">Blue</label>
                             </div>
                             <div className="color">
                                 <input type="checkbox" className="color-checkbox filter-color" id="red" name="red" 
                                 value="Red" 
                                 onChange={colorClickToggle}
                                 />
-                                <label for="red" className="color-name">Red</label>
+                                <label htmlFor="red" className="color-name">Red</label>
                             </div>
                             <div className="color">
                                 <input type="checkbox" className="color-checkbox filter-color" id="yellow" name="yellow" 
                                 value="Yellow"
                                 onChange={colorClickToggle}
                                 />
-                                <label for="yellow" className="color-name">Yellow</label>
+                                <label htmlFor="yellow" className="color-name">Yellow</label>
                             </div>
                             <div className="color">
                                 <input type="checkbox" className="color-checkbox filter-color" id="green" name="green"
                                 value="Green"
                                 onChange={colorClickToggle}
                                 />
-                                <label for="green" className="color-name">Green</label>
+                                <label htmlFor="green" className="color-name">Green</label>
                             </div>
                         </div>
                     </div>

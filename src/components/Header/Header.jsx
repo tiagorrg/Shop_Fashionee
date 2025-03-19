@@ -3,7 +3,7 @@ import { HeaderContext } from '../../context';
 import { CountFromLS } from './components/CountFromLS'
 import './Header.css';
 
-import logoIcon from './icons/logo.svg';
+import logoIcon from '../../icons/logo.svg';
 import searchIcon from './icons/search.svg';
 import profileIcon from './icons/profile.svg';
 import heartIcon from './icons/heart.svg';
@@ -11,8 +11,12 @@ import cartIcon from './icons/cart.svg';
 import vectorIcon from './icons/vector.svg';
 import vectorPinkIcon from './icons/vector-pink.svg';
 
-export const Header = () => {
+export const Header = ({ currentPage, setCurrentPage}) => {
     const {productsInBasket, productsInFavorite} = useContext(HeaderContext)
+
+    const setShopPage = () => {
+        setCurrentPage("Shop")
+    }
 
     const countInBasket = (products) => {
         let result = 0
@@ -56,7 +60,7 @@ export const Header = () => {
                         <img src={vectorIcon} alt='' className='arrow-default'/>
                         <img src={vectorPinkIcon} alt='' className='arrow-hover'/>
                     </div>
-                    <div className='menu-item active'>
+                    <div className='menu-item active' onClick={currentPage !== "Shop" ? setShopPage : () => {return}}>
                         Shop
                         <img src={vectorIcon} alt='' className='arrow-default'/>
                         <img src={vectorPinkIcon} alt='' className='arrow-hover'/>
@@ -76,8 +80,19 @@ export const Header = () => {
                 <div className='header-icons'>
                     <img src={profileIcon} alt='icons-profile'/>
                 </div>
-                <CountFromLS urlIcon={heartIcon} altIcon='Icon favorite' count={productsInFavorite.length} />
-                <CountFromLS urlIcon={cartIcon} altIcon='Icon cart' count={countInBasket(productsInBasket)} />
+                <CountFromLS 
+                    urlIcon={heartIcon}
+                    altIcon='Icon favorite'
+                    count={productsInFavorite.length}
+                />
+
+                <CountFromLS
+                    isBasket = {true}
+                    urlIcon={cartIcon} 
+                    altIcon='Icon cart' 
+                    count={countInBasket(productsInBasket)}
+                    setCurrentPage = {setCurrentPage}
+                />
             </div>
         </header>
     );    

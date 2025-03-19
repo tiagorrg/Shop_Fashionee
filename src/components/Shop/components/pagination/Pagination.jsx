@@ -13,13 +13,13 @@ export const Pagination = ({ pagination, handlePaginationChange, totalItems }) =
                 onClick={() => handlePaginationChange(pagination.page - 1)}
                 disabled={pagination.page === 1}
             >
-                <img src={PaginationArrowLeft} alt="arrow left" />
+                <img src={PaginationArrowLeft} alt="arrow left"/>
             </div>
-            <div className="pages js-pages">
+            <div className="pages">
                 {[...Array(totalPages)].map((_, index) => (
                     <div
                         key={index}
-                        className={`page js-page ${pagination.page === index + 1 ? "active" : ""}`}
+                        className={`page ${pagination.page === index + 1 ? "active" : ""}`}
                         onClick={() => handlePaginationChange(index + 1)}
                     >
                         {index + 1}

@@ -7,8 +7,6 @@ import { pageSize, oldFilter } from "../../constants";
 import { getDataProduct, filterProducts } from "./utils";
 import "./Shop.css";
 
-
-
 export const Shop = ({ data }) => {
     const products = data.products;
     const [currentFilter, setCurrentFilter] = useState(oldFilter)
@@ -24,9 +22,9 @@ export const Shop = ({ data }) => {
             sort,
             pagination,
             products
-        );
-        setFilteredProducts(filtered);
-    }, [searchValue, sort, pagination, products, currentFilter]);
+        )
+        setFilteredProducts(filtered)
+    }, [searchValue, sort, pagination, products, currentFilter])
 
     const handleSortChange = (e) => {
         setSort(e.target.value)
@@ -52,6 +50,7 @@ export const Shop = ({ data }) => {
                         currentFilter = {currentFilter}
                         setCurrentFilter = {setCurrentFilter}
                     />
+                    
                     <div className="products-wrapper">
                         <div className="sort-and-count">
                             <div className="product-count">
@@ -61,14 +60,17 @@ export const Shop = ({ data }) => {
                                 </span>{" "}
                                 products in this category
                             </div>
-                        <Sort
-                            sort = {sort}
-                            handleSortChange = {handleSortChange}
-                        />
+
+                            <Sort
+                                sort = {sort}
+                                handleSortChange = {handleSortChange}
+                            />
                         </div>
-                        <div className="products js-products">
+
+                        <div className="products">
                             {getDataProduct(filteredProducts)}
                         </div>
+
                         <Pagination
                             pagination={pagination}
                             handlePaginationChange={handlePaginationChange}

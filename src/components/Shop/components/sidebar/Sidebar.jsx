@@ -17,7 +17,6 @@ export const Sidebar = ({ setSearchValue, currentFilter, setCurrentFilter }) => 
     }, [tempFilter, currentFilter]);
 
     const applyFilter = () => {
-        console.log(tempFilter)
         setCurrentFilter(tempFilter);
     };
 
@@ -46,7 +45,9 @@ export const Sidebar = ({ setSearchValue, currentFilter, setCurrentFilter }) => 
 
     return (
         <div className="sidebar">
-            <Search setSearchValue={setSearchValue} />
+            <Search 
+                setSearchValue={setSearchValue}
+            />
 
             <Categories
                 selectedCategory={tempFilter.category}
@@ -78,9 +79,11 @@ export const Sidebar = ({ setSearchValue, currentFilter, setCurrentFilter }) => 
             </div>
 
             <div className="sidebar-item">
-                <div className="sidebar-title">Reviewed by you</div>
+                <div className="sidebar-title">
+                    Reviewed by you
+                </div>
                 <div className="sidebar-content">
-                    <div className="reviewed-products js-reviewed-products">
+                    <div className="reviewed-products">
                         <div className="product">
                             <div className="image"></div>
                             <div className="info">
