@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { HeaderContext } from "../../../../context/index"
+import { AppContext } from "../../../../context/index"
 
 import Heart from "./icons/heart.svg"
 import RedHeart from "./icons/heart-red.svg"
@@ -8,7 +8,7 @@ import RedHeart from "./icons/heart-red.svg"
 import { PRODUCT_IN_FAVORITE_KEY, PRODUCT_IN_BASKET_KEY, getFromLS, clickBuyProduct, clickOnFavorite, checkHasFavorite} from "../../../../constants"
 
 export const Product = ({product}) => {
-    const {setProductsInBasket, setProductsInFavorite} = useContext(HeaderContext)
+    const {setProductsInBasket, setProductsInFavorite} = useContext(AppContext)
     
     const [urlIconFavorite, setUrlIconFavorite] = useState(checkHasFavorite(getFromLS(PRODUCT_IN_FAVORITE_KEY), product) ? RedHeart : Heart)
 

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { HeaderContext } from '../../context';
+import { AppContext } from '../../context';
 import { CountFromLS } from './components/CountFromLS'
 import './Header.css';
 
@@ -12,7 +12,7 @@ import vectorIcon from './icons/vector.svg';
 import vectorPinkIcon from './icons/vector-pink.svg';
 
 export const Header = ({ currentPage, setCurrentPage}) => {
-    const {productsInBasket, productsInFavorite} = useContext(HeaderContext)
+    const {productsInBasket, productsInFavorite} = useContext(AppContext)
 
     const setShopPage = () => {
         setCurrentPage("Shop")

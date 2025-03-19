@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
-import { CurrentPages } from "../../../context";
+import { AppContext } from "../../../context";
 
 export const CountFromLS = (props) => {
-    const {setCurrentPage} = useContext(CurrentPages)
+    const {setCurrentPage} = useContext(AppContext)
 
     const setCartPage = () => {
         setCurrentPage("Cart")

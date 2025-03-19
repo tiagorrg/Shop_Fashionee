@@ -7,7 +7,7 @@ import data from './products.json'
 import './styles/App.css';
 import './styles/commons.css'
 
-import { HeaderContext, CurrentPages } from './context'
+import { AppContext } from './context'
 import { PRODUCT_IN_FAVORITE_KEY, PRODUCT_IN_BASKET_KEY, getFromLS } from './constants'
 
 function App() {
@@ -15,24 +15,24 @@ function App() {
   const [productsInFavorite, setProductsInFavorite] = useState (getFromLS(PRODUCT_IN_FAVORITE_KEY) || [])
 
   const [currentPage, setCurrentPage] = useState ("Shop")
+  const [filteredProducts, setFilteredProducts] = useState(data.products);
 
-  
-  
   return (
-    <HeaderContext.Provider value = {{
+    <AppContext.Provider value = {{
       productsInBasket,
       setProductsInBasket,
 
       productsInFavorite,
-      setProductsInFavorite
+      setProductsInFavorite,
+
+      currentPage,
+      setCurrentPage,
+
+      filteredProducts,
+      setFilteredProducts,
     }}>
 
       <div className="App">
-        <CurrentPages.Provider value={{
-          currentPage,
-          setCurrentPage
-        }}>
-
           <Header
             currentPage = {currentPage}
             setCurrentPage = {setCurrentPage}
@@ -41,13 +41,11 @@ function App() {
             currentPage = {currentPage}
           />
 
-        </CurrentPages.Provider>
-
-        <Shop data = {data}/>
+        <Shop products = {data.products}/>
 
         <Footer/>
       </div>
-    </HeaderContext.Provider>
+    </AppContext.Provider>
   );
 }
 
