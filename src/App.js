@@ -3,12 +3,16 @@ import { Header } from './components/Header/Header.jsx'
 import { ContentArea } from './components/ContextArea/ContentArea.jsx'
 import { Shop } from './components/Shop/Shop.jsx';
 import { Footer } from './components/Footer/Footer.jsx'
+import { Cart } from './components/Cart'
+
 import data from './products.json'
+
 import './styles/App.css';
 import './styles/commons.css'
 
 import { AppContext } from './context'
 import { PRODUCT_IN_FAVORITE_KEY, PRODUCT_IN_BASKET_KEY, getFromLS } from './constants'
+import { error } from 'ajv/dist/vocabularies/applicator/dependencies.js';
 
 function App() {
   const [productsInBasket, setProductsInBasket] = useState (getFromLS(PRODUCT_IN_BASKET_KEY) || [])
@@ -16,6 +20,18 @@ function App() {
 
   const [currentPage, setCurrentPage] = useState ("Shop")
   const [filteredProducts, setFilteredProducts] = useState(data.products);
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "Shop":
+        return <Shop products={data.products} />;
+      case "Cart":
+        return <Cart products={productsInBasket} />;
+      default:
+        console.error(error);
+        return null;
+    }
+  };
 
   return (
     <AppContext.Provider value = {{
@@ -33,15 +49,17 @@ function App() {
     }}>
 
       <div className="App">
-          <Header
-            currentPage = {currentPage}
-            setCurrentPage = {setCurrentPage}
-          />
-          <ContentArea 
-            currentPage = {currentPage}
-          />
-
-        <Shop products = {data.products}/>
+        <Header
+          currentPage = {currentPage}
+          setCurrentPage = {setCurrentPage}
+        />
+        <ContentArea 
+          currentPage = {currentPage}
+        />
+        
+        { 
+          renderPage()
+        }
 
         <Footer/>
       </div>
