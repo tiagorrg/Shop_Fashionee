@@ -1,0 +1,77 @@
+.news-letter{
+    background-color:#F1F2F3;
+    max-height: 450px;
+    margin: 120px;
+}
+
+.news-letter .container{
+    padding-bottom: 160px;
+}
+
+.news-letter .container .news-letter-wrapper{
+    background: #FFFFFF;
+    max-width: 625px;
+    max-height: 288px;
+    height: 100%;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items{
+    padding: 60px;
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    position: relative;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .background-points{
+    display: block;
+    position: absolute;
+    right: 50px;
+    top: -33px;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .info{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .info .title{
+    font-family: Josefin Sans;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 38.4px;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .info .description{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 23.8px;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .input-and-button{
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .input-and-button input{
+    width: 100%;
+    padding: 0 25px 16px 0;
+    border: none;
+    border-bottom: 1px solid rgb(68, 68, 68, 20%);
+    color: rgba(68, 68, 68, 50%);
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .input-and-button .button-wrapper{
+    width: auto;
+}
+
+.news-letter .container .news-letter-wrapper .news-letter-items .input-and-button .button-wrapper .button{
+    max-width: 140px;
+    padding: 17px 30px;
+}

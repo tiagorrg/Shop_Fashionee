@@ -6,14 +6,12 @@ import { PromoCode } from "./components/PromoCode"
 
 import './style.css'
 
-export const Cart = (productsInBasket) => {
+export const Cart = () => {
     return (
         <div className="container">
             <div className="cart">
                 <div className="order-wrapper">
-                    <ProductList
-                        productsInBasket = {productsInBasket}
-                    />
+                    <ProductList/>
 
                     <Order/>
                 </div>

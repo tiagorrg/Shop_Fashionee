@@ -16,7 +16,7 @@
 } */
 
 .container{
-    margin: 0 auto;
+    margin: 0 auto 250px auto;
     max-width: 1140px;
     width: 100%;
 }

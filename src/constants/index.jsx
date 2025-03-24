@@ -5,6 +5,11 @@ export const PRODUCT_IN_BASKET_KEY = 'product-in-basket'
 
 export const pageSize = 12
 
+export const deliveryPrice = 16
+
+export const promoCodes = ["helloworld"]
+export const discount = 0.1
+
 export const oldFilter = {
     category: 'All',
     price: {

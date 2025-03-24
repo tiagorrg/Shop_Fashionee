@@ -36,7 +36,6 @@
 
 .cart .order-wrapper .product-list .product .photo{
     max-width: 130px;
-    height: 140px;
     background-color: rgba(241, 242, 243, 1);
     width: 100%;
 }
@@ -114,6 +113,10 @@
     border: 1px solid rgba(68, 68, 68, 0.1);
     color: rgba(68, 68, 68, 0.1);
     cursor: pointer;
+}
+
+.cart .order-wrapper .product-list .product .product-info .close:hover{
+    background-color: rgb(238, 234, 234);
 }
 
 .cart .order-wrapper .order{

@@ -20,13 +20,16 @@ function App() {
 
   const [currentPage, setCurrentPage] = useState ("Shop")
   const [filteredProducts, setFilteredProducts] = useState(data.products);
+  const [ promoIsActive, setPromoIsActive ] = useState(false)
 
   const renderPage = () => {
     switch (currentPage) {
       case "Shop":
         return <Shop products={data.products} />;
+
       case "Cart":
-        return <Cart products={productsInBasket} />;
+        return <Cart productsInBasket={productsInBasket} />;
+
       default:
         console.error(error);
         return null;
@@ -46,6 +49,9 @@ function App() {
 
       filteredProducts,
       setFilteredProducts,
+
+      promoIsActive,
+      setPromoIsActive
     }}>
 
       <div className="App">

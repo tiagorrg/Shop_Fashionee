@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
+
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { Sort } from "./components/sort_products/Sort";
 import { Pagination } from "./components/pagination/Pagination";
+import { NewsLetter } from "./components/NewsLetter";
+
 import { AppContext } from "../../context";
 import { pageSize, oldFilter } from "../../constants";
 import { getDataProduct, filterProducts } from "./utils";
@@ -37,41 +40,44 @@ export const Shop = ({ products }) => {
     }
 
     return (
-        <div className="container">
-            <div className="shop">
-                <Sidebar
-                    setSearchValue = {setSearchValue}
-                    currentFilter = {currentFilter}
-                    setCurrentFilter = {setCurrentFilter}
-                />
-                
-                <div className="products-wrapper">
-                    <div className="sort-and-count">
-                        <div className="product-count">
-                            There are{" "}
-                            <span className="bold" id="products-count">
-                                {filteredProducts.length}
-                            </span>{" "}
-                            products in this category
+        <>
+            <div className="container">
+                <div className="shop">
+                    <Sidebar
+                        setSearchValue = {setSearchValue}
+                        currentFilter = {currentFilter}
+                        setCurrentFilter = {setCurrentFilter}
+                    />
+                    
+                    <div className="products-wrapper">
+                        <div className="sort-and-count">
+                            <div className="product-count">
+                                There are{" "}
+                                <span className="bold" id="products-count">
+                                    {filteredProducts.length}
+                                </span>{" "}
+                                products in this category
+                            </div>
+
+                            <Sort
+                                sort = {sort}
+                                handleSortChange = {handleSortChange}
+                            />
                         </div>
 
-                        <Sort
-                            sort = {sort}
-                            handleSortChange = {handleSortChange}
+                        <div className="products">
+                            {getDataProduct(filteredProducts)}
+                        </div>
+
+                        <Pagination
+                            pagination={pagination}
+                            handlePaginationChange={handlePaginationChange}
+                            totalItems={products.length}
                         />
                     </div>
-
-                    <div className="products">
-                        {getDataProduct(filteredProducts)}
-                    </div>
-
-                    <Pagination
-                        pagination={pagination}
-                        handlePaginationChange={handlePaginationChange}
-                        totalItems={products.length}
-                    />
                 </div>
             </div>
-        </div>
+            <NewsLetter/>
+        </>
     );
 };
