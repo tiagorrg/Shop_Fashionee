@@ -3,24 +3,24 @@ import "./style.css"
 
 export const NewsLetter = () => {
     return (
-        <div class="news-letter">
-            <div class="container">
-                <div class="news-letter-wrapper">
-                    <div class="news-letter-items">
-                        <img class="background-points" src="./background/square-points-5x5.svg" alt=""/>
-                        <div class="info">
-                            <div class="title">
+        <div className="news-letter">
+            <div className="container">
+                <div className="news-letter-wrapper">
+                    <div className="news-letter-items">
+                        <img className="background-points" src="./background/square-points-5x5.svg" alt=""/>
+                        <div className="info">
+                            <div className="title">
                                 Newsletter
                             </div>
-                            <div class="description">
+                            <div className="description">
                                 Be the first to hear about deals,  offers and upcoming collections.
                             </div>
                         </div>
-                        <div class="input-and-button">
-                            <input type="text" placeholder="Enter your email" class="newsletter-email"/>
-                            <div class="button-wrapper">
-                                <button class="button">Subscribe</button>
-                                <div class="vertical-line"></div>
+                        <div className="input-and-button">
+                            <input type="text" placeholder="Enter your email" className="newsletter-email"/>
+                            <div className="button-wrapper">
+                                <button className="button">Subscribe</button>
+                                <div className="vertical-line"></div>
                             </div>
                         </div>
                     </div>
