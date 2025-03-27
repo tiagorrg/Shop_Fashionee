@@ -18,6 +18,10 @@
     align-items: center;
 }
 
+.header .left-side .logo-container .logo {
+    cursor: pointer;
+}
+
 .header .left-side .logo-container .burger-menu .burger-checkbox {
     position: absolute;
     visibility: hidden;

@@ -69,6 +69,10 @@
     align-items: center;
 }
 
+.cart .order-wrapper .product-list .product .product-info .price-wrapper .price-and-quantity .price {
+    width: 100px;
+}
+
 .cart .order-wrapper .product-list .product .product-info .price-wrapper .price-and-quantity .quantity{
     background-color: rgba(248, 248, 251, 1);
     display: flex;

@@ -28,7 +28,7 @@ function App() {
         return <Shop products={data.products} />;
 
       case "Cart":
-        return <Cart productsInBasket={productsInBasket} />;
+        return <Cart/>;
 
       default:
         console.error(error);
@@ -37,7 +37,7 @@ function App() {
   };
 
   return (
-    <AppContext.Provider value = {{
+    <AppContext.Provider value={{
       productsInBasket,
       setProductsInBasket,
 
@@ -56,11 +56,11 @@ function App() {
 
       <div className="App">
         <Header
-          currentPage = {currentPage}
-          setCurrentPage = {setCurrentPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
         <ContentArea 
-          currentPage = {currentPage}
+          currentPage={currentPage}
         />
         
         { 
