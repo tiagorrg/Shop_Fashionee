@@ -1,5 +1,6 @@
 import { filterProducts } from './components/Shop/utils';
 import data from './products.json';
+import { sumTimeout } from './sumTimeout';
 
 const pageSize = 12;
 
@@ -47,7 +48,7 @@ describe('Фильтрация и поиск товаров', () => {
 
       const allMenProducts = products.filter(p => p.categories.includes('Men'));
       const expectedProducts = getExpectedProducts(allMenProducts);
-      
+
       expect(result.filteredProducts).toEqual(expectedProducts);
       expect(result.filteredProducts.length).toBeLessThanOrEqual(pageSize);
     });
@@ -68,7 +69,7 @@ describe('Фильтрация и поиск товаров', () => {
 
       const allWomenProducts = products.filter(p => p.categories.includes('Women'));
       const expectedProducts = getExpectedProducts(allWomenProducts);
-      
+
       expect(result.filteredProducts).toEqual(expectedProducts);
     });
 
@@ -88,7 +89,7 @@ describe('Фильтрация и поиск товаров', () => {
 
       const allAccessories = products.filter(p => p.categories.includes('Accessories'));
       const expectedProducts = getExpectedProducts(allAccessories);
-      
+
       expect(result.filteredProducts).toEqual(expectedProducts);
     });
 
@@ -108,7 +109,7 @@ describe('Фильтрация и поиск товаров', () => {
 
       const allNewArrivals = products.filter(p => p.categories.includes('New Arrivals'));
       const expectedProducts = getExpectedProducts(allNewArrivals);
-      
+
       expect(result.filteredProducts).toEqual(expectedProducts);
     });
 
@@ -161,10 +162,10 @@ describe('Фильтрация и поиск товаров', () => {
         products
       );
 
-      const expected = products.filter(p => 
+      const expected = products.filter(p =>
         p.name.toLowerCase().includes(testProduct.name.toLowerCase())
       );
-      
+
       expect(result.filteredProducts).toEqual(getPaginated(expected));
       expect(result.filteredProducts[0].name).toBe(testProduct.name);
     });
@@ -183,7 +184,7 @@ describe('Фильтрация и поиск товаров', () => {
         searchFilter.pagination,
         products
       );
-      
+
       expect(result.filteredProducts.length).toBeGreaterThan(0);
       result.filteredProducts.forEach(product => {
         expect(product.name.toLowerCase()).toContain(searchText.toLowerCase());
@@ -225,11 +226,11 @@ describe('Фильтрация и поиск товаров', () => {
         products
       );
 
-      const expected = products.filter(p => 
-        p.categories.includes('Women') && 
+      const expected = products.filter(p =>
+        p.categories.includes('Women') &&
         p.name.toLowerCase().includes('dress')
       );
-      
+
       expect(result.filteredProducts).toEqual(getPaginated(expected));
       result.filteredProducts.forEach(product => {
         expect(product.categories).toContain('Women');
@@ -238,3 +239,25 @@ describe('Фильтрация и поиск товаров', () => {
     });
   });
 });
+
+describe('Async test', () => {
+
+  test('Сумма 1 и 3 через 1 секунду должна быть 4', done => {
+    sumTimeout(1, 3, (result) => {
+      try {
+        expect(result).toBe(4);
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+  });
+
+  test('асинхронный код с async/await и resolves', async () => {
+    function fetchData() {
+      return Promise.resolve('Hello world');
+    }
+  
+    await expect(fetchData()).resolves.toBe('Hello world');
+  });
+})
