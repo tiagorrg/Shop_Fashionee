@@ -133,6 +133,7 @@
     display: flex;
     gap: 4px;
     align-items: center;
+    cursor: pointer;
 }
 
 .header .right-side .header-icons .counter{
